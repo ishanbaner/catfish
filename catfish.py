@@ -2,9 +2,7 @@ import chess
 import chess.engine
 import random
 board=chess.Board()
-#board.push_san("Nf3")
-#print(moves)
-def movesortedlist(board):
+def movesortedlist(board):#Ordering the moves
     l=list(board.legal_moves)
     nl=[]
     c=0
@@ -25,7 +23,7 @@ def movesortedlist(board):
         board.pop()
     return(nl)
 
-def points(board1,white):
+def points(board1,white):#Calculating the evaluation of a position 
     if board1.is_checkmate() and white:
         return(1000000000000000000000000)
     elif board1.is_checkmate() and white==False:
@@ -85,7 +83,7 @@ def points(board1,white):
             
     return(s)
 
-def bestmove(board1,depth,white,alpha,beta):
+def bestmove(board1,depth,white,alpha,beta):# Finding the best move
     maxi=-99999
     mini=99999
     ma=-99999
