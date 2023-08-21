@@ -2,7 +2,20 @@ import chess
 import chess.engine
 import random
 board=chess.Board()
-def movesortedlist(board):#Ordering the moves
+#board.push_san("Nf3")
+#print(moves)
+transpos={}
+def boardaslist(board):
+    l=""
+    rows=""
+    for r in range(0,8):
+        for c in range(0,8):
+            sq=r*8+c
+            rows+=str(board.piece_at(sq))
+        l+=rows
+        rows=""
+    return(l)
+def movesortedlist(board):
     l=list(board.legal_moves)
     nl=[]
     c=0
@@ -23,13 +36,13 @@ def movesortedlist(board):#Ordering the moves
         board.pop()
     return(nl)
 
-def points(board1,white):#Calculating the evaluation of a position 
+def points(board1,white):
     if board1.is_checkmate() and white:
         return(1000000000000000000000000)
     elif board1.is_checkmate() and white==False:
         return(-100000000000000000000000)
     s=0
-    #rookpos=[[0,0,0.1,0.1,0.1,0.1,0,0],[0,0,0.1,0.1,0.1,0.1,0,0],[0,0,0.1,0.1,0.1,0.1,0,0],[0,0,0.1,0.1,0.1,0.1,0,0],[0,0,0.1,0.1,0.1,0.1,0,0],[0,0,0.1,0.1,0.1,0.1,0,0],[0,0,0.1,0.1,0.1,0.1,0,0],[0,0,0.1,0.1,0.1,0.1,0,0]]
+    rookpos=[[0,0,0.1,0.1,0.1,0.1,0,0],[0,0,0.1,0.1,0.1,0.1,0,0],[0,0,0.1,0.1,0.1,0.1,0,0],[0,0,0.1,0.1,0.1,0.1,0,0],[0,0,0.1,0.1,0.1,0.1,0,0],[0,0,0.1,0.1,0.1,0.1,0,0],[0,0,0.1,0.1,0.1,0.1,0,0],[0,0,0.1,0.1,0.1,0.1,0,0]]
     kingpos=[[0.1,0.1,0.1,-0.1,-0.1,0.5,0.5,0.5],[-0.1,-0.1,-0.1,-0.1,-0.1,-0.1,-0.1,-0.1],[-0.1,-0.1,-0.1,-0.1,-0.1,-0.1,-0.1,-0.1],[-0.1,-0.1,-0.1,-0.1,-0.1,-0.1,-0.1,-0.1],[-0.1,-0.1,-0.1,-0.1,-0.1,-0.1,-0.1,-0.1],[-0.1,-0.1,-0.1,-0.1,-0.1,-0.1,-0.1,-0.1],[-0.1,-0.1,-0.1,-0.1,-0.1,-0.1,-0.1,-0.1],[-0.1,-0.1,-0.1,-0.1,-0.1,-0.1,-0.1,-0.1]]
     knightpos=[[-0.5,-0.4,-0.3,-0.3,-0.3,-0.3,-0.4,-0.5],[-0.4,-0.2,0,0.05,0.05,0,-0.2,-0.4],[-0.3,0.05,0.1,0.15,0.15,0.1,0.05,-0.3],[-0.3,0,0.1,0.15,0.15,0.1,0,-0.3],[-0.3,0.05,0.1,0.15,0.15,0.1,0.05,-0.3],[-0.3,0.05,0.1,0.15,0.15,0.1,0.05,-0.3],[-0.4,-0.2,0,0.05,0.05,0,-0.2,-0.4],[-0.5,-0.4,-0.3,-0.3,-0.3,-0.3,-0.4,-0.5]]
     pawnpos=[[0,0,0,0,0,0,0,0],[0.05,0.1,0.1,-0.2,-0.2,0.1,0.1,0.05],[0.05,-0.05,-0.1,0,0,-0.1,-0.05,0.05],[0,0,0,0.2,0.2,0,0,0],[0.05,0.05,0.1,0.25,0.25,0.1,0.05,0.05],[0.1,0.1,0.2,0.3,0.3,0.2,0.1,0.1],[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5],[0,0,0,0,0,0,0,0]]
@@ -80,10 +93,15 @@ def points(board1,white):#Calculating the evaluation of a position
                 s-=bishoppos[7-row][7-columns]
             if p=='K':
                 s+=kingpos[row][columns]
-            
+            if p=='k':
+                s+=kingpos[7-row][7-columns]
+            if p=='R':
+                s+=rookpos[row][columns]
+            if p=='r':
+                s-=rookpos[7-row][7-columns]
     return(s)
 
-def bestmove(board1,depth,white,alpha,beta):# Finding the best move
+def bestmove(board1,depth,white,alpha,beta):
     maxi=-99999
     mini=99999
     ma=-99999
@@ -157,19 +175,24 @@ def bestmove(board1,depth,white,alpha,beta):# Finding the best move
                     beta=min(beta,eval2)
                 
             board1.pop()
-        
+        #print(best)
         return([mini,best])
 
 while(board.is_checkmate()==False or board.is_stalemate()==False):
     movelist=[]
     moves=list(board.legal_moves)
-    movem=bestmove(board,3,True,-99999,99999)
-    move=movem[1]
+    boardlist=boardaslist(board)
+    if boardlist in transpos.keys():
+        move=transpos[board] 
+    else:
+        movem=bestmove(board,3,True,-99999,99999)
+        move=movem[1]
     board.push_san(str(move))
     movelist+=[move]
     print("--------------------------------------")
     print(board)
     print(move)
+    transpos[boardlist]=move
     print("--------------------------------------")
     inp=input()
     board.push_san(inp)
