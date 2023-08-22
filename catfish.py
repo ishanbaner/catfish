@@ -114,7 +114,6 @@ def bestmove(board1,depth,white,alpha,beta):
             if board1.is_checkmate():
                 best=j
                 ma=999999999
-                break
             elif points(board1,True)>ma:
                 ma=points(board1,True)
                 best=j
@@ -128,7 +127,6 @@ def bestmove(board1,depth,white,alpha,beta):
             if board1.is_checkmate():
                 best=j1
                 mi=-999999999
-                break
             elif points(board1,False)<mi:
                 mi=points(board1,False)
                 best=j1
