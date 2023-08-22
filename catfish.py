@@ -192,7 +192,7 @@ while(board.is_checkmate()==False or board.is_stalemate()==False):
     moves=list(board.legal_moves)
     boardlist=boardaslist(board)
     if boardlist in transpos.keys():
-        move=transpos[board] 
+        move=transpos[boardlist] 
     else:
         movem=bestmove(board,3,True,-99999,99999)
         move=movem[1]
