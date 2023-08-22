@@ -113,6 +113,8 @@ def bestmove(board1,depth,white,alpha,beta):
             board1.push_san(str(j))
             if board1.is_checkmate():
                 best=j
+                ma=999999999
+                break
             elif points(board1,True)>ma:
                 ma=points(board1,True)
                 best=j
@@ -125,6 +127,8 @@ def bestmove(board1,depth,white,alpha,beta):
             board1.push_san(str(j1))
             if board1.is_checkmate():
                 best=j1
+                mi=-999999999
+                break
             elif points(board1,False)<mi:
                 mi=points(board1,False)
                 best=j1
@@ -147,11 +151,13 @@ def bestmove(board1,depth,white,alpha,beta):
                 eval=preval
                 if board1.is_checkmate():
                     best=k
-                if eval>maxi:
+                elif eval>maxi:
                     maxi=eval
                     best=k            
                     alpha=max(alpha,eval)
-                
+            else:
+                best=k
+                maxi=999999999999999999
             board1.pop()
         return([maxi,best])
     
@@ -167,12 +173,17 @@ def bestmove(board1,depth,white,alpha,beta):
                 bmm=bestmove(board1,d,True,alpha,beta)
                 preval=bmm[0]
                 eval2=preval
+                #print(m,"-",eval2)
                 if board1.is_checkmate():
                     best=m
                 if eval2<mini:
                     mini=eval2
                     best=m
                     beta=min(beta,eval2)
+            else:
+                best=m
+                mini=-99999999999999
+                #print(m,"-",mini," Mate")
                 
             board1.pop()
         #print(best)
@@ -200,4 +211,3 @@ while(board.is_checkmate()==False or board.is_stalemate()==False):
     print("--------------------------------------")
     print(board)
     print("--------------------------------------") 
-
