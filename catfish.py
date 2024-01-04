@@ -227,7 +227,7 @@ def bestmove(board1,depth,white,alpha,beta):
         #print(best)
         transpos[boardaslist(board1)]=mini
         return([mini,best])
-
+#Play with the bot
 c=0
 wh=input()
 if wh=="B":
