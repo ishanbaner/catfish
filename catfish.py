@@ -7,8 +7,7 @@ import pandas as pd
 board=chess.Board()
 count=0
 ch=0
-#transposW={}
-#transposB={}
+
 transpos={}
 
 def boardaslist(board):
@@ -49,8 +48,7 @@ def points(board1,white):
         return(1000000000000000000000000)
     elif board1.is_checkmate() and white==False:
         return(-100000000000000000000000)
-    #if board1.fen() in df['FEN']:
-    #    return()
+    
     s=0
     
     rookpos=[[0,0,0,0.2,0.2,0,0,0],[0,0,0.1,0.2,0.2,0.1,0,0],[0.1,0.1,0.2,0.3,0.3,0.2,0.1,0.1],[0.1,0.1,0.2,0.3,0.3,0.2,0.1,0.1],[0.1,0.1,0.2,0.3,0.3,0.2,0.1,0.1],[0.1,0.1,0.2,0.3,0.3,0.2,0.1,0.1],[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5],[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]]
@@ -158,7 +156,7 @@ def bestmove(board1,depth,white,alpha,beta):
 
     elif white and depth>1:
         l3=movesortedlist(board1)
-        #l3=list(board1.legal_moves)
+        
         best=best=l3[random.randint(0,len(l3)-1)]
         for k in l3:
             
@@ -197,14 +195,13 @@ def bestmove(board1,depth,white,alpha,beta):
         #l4=list(board1.legal_moves)
         best=l4[random.randint(0,len(l4)-1)]
         for m in l4:
-            #if time.time()-ct>=10:
-            #   break
+           
             if beta<=alpha:
                 break
                 
             board1.push_san(str(m))
             count+=1
-            #bl=boardaslist(board1)
+           
             bl=str(board1)
             d=depth-1
             if board1.is_checkmate()==False:
@@ -214,7 +211,7 @@ def bestmove(board1,depth,white,alpha,beta):
                     bmm=bestmove(board1,d,True,alpha,beta)
                     preval=bmm[0]
                     eval2=preval
-                #print(m,"-",eval2)
+                
                 if board1.is_checkmate():
                     best=m
 
@@ -231,8 +228,6 @@ def bestmove(board1,depth,white,alpha,beta):
            
             board1.pop()
            
-        #print(best)
-        #transpos[boardaslist(board1)]=mini
         return([mini,best])
 movelist=[]
 ev=0
@@ -260,17 +255,12 @@ if c==1:
     while((board.is_checkmate()==False or board.is_stalemate()==False)):
         moves=list(board.legal_moves)
         boardlist=boardaslist(board)
-        #if boardlist in transpos.keys():
-        #    move=transpos[board] 
-        #else:
+       
         movem=bestmove(board,def_depth,True,-99999,99999)
         move=movem[1]
-        #movem2=bestcapture(board, move ,True)
+        
         ev=movem[0]
-        #ev2=movem2[0]
-        #print(ev," ",ev2)
-        #if ev<ev2:
-         #   move=movem2[1]
+        
         board.push_san(str(move))
         movelist+=[move]
         #print("--------------------------------------")
@@ -278,7 +268,7 @@ if c==1:
         print(move)
         print("Positions:",count)
         print(ev)
-        #transpos[boardlist]=movem[0]
+        
         print("--------------------------------------")
         inp=input()
         board.push_san(inp)
@@ -303,9 +293,6 @@ else:
         '''
         moves=list(board.legal_moves)
         boardlist=boardaslist(board)
-        #if boardlist in transpos.keys():
-        #    move=transpos[board] 
-        #else:   
         movem=bestmove(board,def_depth,False,-99999,99999)
         move=movem[1]
         ev=movem[0]
