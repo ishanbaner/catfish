@@ -96,19 +96,19 @@ def points(board1,white):
             if p=='B':
                 s+=bishoppos[row][columns]
             if p=='n':
-                s-=knightpos[row][columns]
+                s-=knightpos[7-row][7-columns]
             if p=='p':
-                s-=pawnpos[row][columns]
+                s-=pawnpos[7-row][7-columns]
             if p=='b':
-                s-=bishoppos[row][columns]
+                s-=bishoppos[7-row][7-columns]
             if p=='K':
                 s+=kingpos[row][columns]
             if p=='k':
-                s-=kingpos[row][columns]
+                s-=kingpos[7-row][7-columns]
             if p=='R':
                 s+=rookpos[row][columns]
             if p=='r':
-                s-=rookpos[row][columns]
+                s-=rookpos[7-row][7-columns]
     return(s)
 
 
