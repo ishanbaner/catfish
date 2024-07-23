@@ -3,7 +3,7 @@ import chess.engine
 import random
 import time
 import sys
-import pandas as pd
+
 board=chess.Board()
 count=0
 ch=0
@@ -225,7 +225,6 @@ def bestmove(board1,depth,white,alpha,beta):
                 mini=-99999999999999
                 eval2=mini
                 
-           
             board1.pop()
            
         return([mini,best])
@@ -234,6 +233,9 @@ ev=0
 ev2=0
 c=0
 def_depth=4
+
+# Playing with the 
+
 wh=input()
 if wh=="B":
     c=1
