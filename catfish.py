@@ -234,8 +234,8 @@ ev2=0
 c=0
 def_depth=4
 
-# Playing with the 
-
+# Playing with the bot
+print("To play as white, enter W else B")
 wh=input()
 if wh=="B":
     c=1
@@ -268,8 +268,8 @@ if c==1:
         #print("--------------------------------------")
         print(board)
         print(move)
-        print("Positions:",count)
-        print(ev)
+        #print("Positions:",count)
+        #print(ev)
         
         print("--------------------------------------")
         inp=input()
@@ -306,6 +306,6 @@ else:
         board.push_san(str(move))
         movelist+=[move]
         print(move)
-        print("Positions:",count)
-        print("Eval:",ev)
+        #print("Positions:",count)
+        #print("Eval:",ev)
         
