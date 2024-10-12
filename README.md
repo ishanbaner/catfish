@@ -4,4 +4,4 @@ I have used the Minimax algorithm along with alpha-beta pruning (with move-order
 The code uses pychess and uses it's board representation.
 
 # Requirements
-chess
+``` pip install chess ```
