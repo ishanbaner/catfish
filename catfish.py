@@ -473,7 +473,7 @@ import pandas as pd
 import chess
 import random
 # Load the CSV file with openings
-openings = pd.read_csv("/home/ishan/Documents/openings.csv")  # Ensure the CSV has a column named "Moves"
+openings = pd.read_csv("/home/ishan/Documents/openings.csv")  # Ensure the CSV has a column named "Moves". Also, change the path
 bl=list(openings['Moves'])
 bl=[x.split() for x in bl]
 buff=[]
@@ -541,3 +541,5 @@ print("Game result:")
 print('wins:',wins)
 print('draws:',draws)
 print('losses',losses)
+
+#Note that I have made the bot play as white in this code and arranged the wins and losses accordingly. Make the changes to make it play as black
