@@ -9,5 +9,6 @@ The code uses PyChess and uses its board representation.
 
 # Requirements
 ``` pip install chess ```
+For getting Stockfish,
 ``` pip install stockfish ```
 Make sure to download Stockfish binary from https://stockfishchess.org/download/
