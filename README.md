@@ -8,7 +8,7 @@ The code uses PyChess and uses its board representation.
  Towards the end of the code, I have added a snippet where the bot can play against various levels of Stockfish as white. Changes can be made to make the bot play as black. You are free to make changes in the level of Stockfish, as well as the level of the bot by changing the depth value.
 
 # Requirements
-``` pip install chess ```
-For getting Stockfish,
+For getting pychess ``` pip install chess ``` 
+For getting Stockfish
 ``` pip install stockfish ```
 Make sure to download Stockfish binary from https://stockfishchess.org/download/
